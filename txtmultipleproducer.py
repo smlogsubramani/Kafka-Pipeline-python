@@ -1,7 +1,7 @@
 from kafka import KafkaProducer
 import base64
 import os
-
+ 
 # Kafka producer configuration
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
@@ -25,7 +25,7 @@ def send_audio_files(file_paths, topic):
 def get_files_in_directory(directory):
     file_paths = []
     for file_name in os.listdir(directory):
-        if file_name.endswith('.wav'):  # Adjust file extension as needed
+        if file_name.endswith('.wav') or file_name.endswith('.ogg'):  # Adjust file extension as needed
             file_paths.append(os.path.join(directory, file_name))
     return file_paths
 
