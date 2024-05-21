@@ -1,3 +1,13 @@
+import kafka
+print(kafka.__version__)
+
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+.\bin\windows\Kafka-server-start.bat .\config\server.properties
+
+
+//txtmultipleproducer
+
 import base64
 import os
 from kafka import KafkaConsumer
@@ -35,8 +45,6 @@ def recognize_from_audio_file(file_path,audio_data):
 output_folder = r'C:\testfoldernewaudio'
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
-
-recognizedtextlist=[]
  
 consumer = KafkaConsumer(
     'audio_topic_multi',
@@ -59,13 +67,10 @@ for message in consumer:
         # recognize_from_audio_file(file_path,audio_data)
 
         recognized_text = recognize_from_audio_file(file_path, audio_data)
-
-        recognizedtextlist.append(recognized_text)
         
-        text_file_path = os.path.join(output_folder,"recognized_text.txt")
+        text_file_path = os.path.join(output_folder, f"recognized_text_{message.offset}.txt")
         with open(text_file_path, 'w') as text_file:
-            for i in recognizedtextlist:
-                text_file.write(recognized_text + "\n")
+            text_file.write(recognized_text)
        
     except Exception as e:
         print(f"Error processing message: {e}")
