@@ -20,12 +20,12 @@ def send_audio_files(file_paths, topic):
         print(f"Sent audio file {file_path} to topic {topic}")
 
         audio_file.close()
+        
 
-# Function to get all file paths from a directory
 def get_files_in_directory(directory):
     file_paths = []
     for file_name in os.listdir(directory):
-        if file_name.endswith('.wav') or file_name.endswith('.ogg'):  # Adjust file extension as needed
+        if file_name.endswith('.wav') or file_name.endswith('.ogg') or file_name.endswith('.mp3'):  
             file_paths.append(os.path.join(directory, file_name))
     return file_paths
 
